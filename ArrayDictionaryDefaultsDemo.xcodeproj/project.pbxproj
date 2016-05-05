@@ -11,6 +11,7 @@
 		48DCF6851CDA8826005BDCD5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 48DCF6841CDA8826005BDCD5 /* main.m */; };
 		48DCF6871CDA8826005BDCD5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48DCF6861CDA8826005BDCD5 /* Assets.xcassets */; };
 		48DCF68A1CDA8826005BDCD5 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48DCF6881CDA8826005BDCD5 /* MainMenu.xib */; };
+		48E83D3B1CDB823900B00AA7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 48E83D3A1CDB823900B00AA7 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		48DCF6861CDA8826005BDCD5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		48DCF6891CDA8826005BDCD5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		48DCF68B1CDA8826005BDCD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		48E83D3A1CDB823900B00AA7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; wrapsLines = 1; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 			children = (
 				48DCF6801CDA8826005BDCD5 /* AppDelegate.h */,
 				48DCF6811CDA8826005BDCD5 /* AppDelegate.m */,
+				48E83D3A1CDB823900B00AA7 /* README.md */,
 				48DCF6861CDA8826005BDCD5 /* Assets.xcassets */,
 				48DCF6881CDA8826005BDCD5 /* MainMenu.xib */,
 				48DCF68B1CDA8826005BDCD5 /* Info.plist */,
@@ -140,6 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48E83D3B1CDB823900B00AA7 /* README.md in Sources */,
 				48DCF6851CDA8826005BDCD5 /* main.m in Sources */,
 				48DCF6821CDA8826005BDCD5 /* AppDelegate.m in Sources */,
 			);
@@ -283,6 +287,7 @@
 				48DCF6901CDA8826005BDCD5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

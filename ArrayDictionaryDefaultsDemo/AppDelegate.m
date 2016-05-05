@@ -1,11 +1,3 @@
-//
-//  AppDelegate.m
-//  ArrayDictionaryDefaultsDemo
-//
-//  Created by Jerry on 16/05/04.
-//  Copyright © 2016 Jerry. All rights reserved.
-//
-
 #import "AppDelegate.h"
 
 @interface AppDelegate ()
@@ -15,12 +7,16 @@
 
 @implementation AppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    // Insert code here to initialize your application
-}
+// #define FIX_IT
 
-- (void)applicationWillTerminate:(NSNotification *)aNotification {
-    // Insert code here to tear down your application
+- (IBAction)apply:(id)sender {
+#ifdef FIX_IT
+    NSArray* content = self.arrayController.content ;
+    [[NSUserDefaults standardUserDefaults] setObject:content
+                                              forKey:@"persons"] ;
+#else
+    NSLog(@"To make this work, #deine FIX_IT in AppDelegate.m") ;
+#endif
 }
 
 @end

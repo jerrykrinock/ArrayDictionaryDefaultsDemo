@@ -1,52 +1,53 @@
-In an OS X app, I wanted to bind a table of objects, each represented by a dictionary, to an array of dictionaries in user defaults.
+This project demonstrates Apple Bug Report 26151911.
 
-So I bound the Content Array of the array controller to the 'values' of the shared user defaults controller with an arbitrary key path, which pleasantly became the key to the array in the user defaults.  I set "Handles Content as Compound Values” to ON.
+## Title
 
-Result: The table is populated as expected from user defaults when its window opens, and all works and persists as expected if user adds or deletes an object (row).  But changes to object attributes are persisted only for new objects, and only if user adds *another* object before quitting.
+View-Based table binding NSArrayController to user defaults fails
 
-In the array controller's content, the object attribute is always changed as expected.  So, the problem is the binding of the array controller content to user defaults, and I think the explanation is that, as always, KVO is “shallow”.  Observing an array does not observe changes to its elements.
+## Description
 
-I’m kind of surprised that the “magic of Cocoa Bindings” does not provide a “code-less” solution for user defaults in this case.  With Core Data, this type of thing “just works”.
+Using Cocoa Bindings, if we bind the columns of a view-based table to an NSArrayController in the conventional way, and bind the 'content' of the array controller to an array of dictionaries in the user defaults via NSUserDefaultsController, the binding will work OK in the model-to-view direction, but in view-to-model direction, if *only* an attribute (dictionary entry) of one or more objects is changed, the change is not forwarded to user defaults as expected.
 
-Did I miss something?
+Because the binding works OK in one direction, and *almost* works in the other direction, and because some simple changes (using a cell-based table, or proxy-ing through another object instead of binding directly to NSUserDefaultsController) cause it to work, we feel that this is a bug caused by some unforeseen interaction between view-based tables and NSUserDefaultsController.
 
-I also tried this using a custom object instead of an NSMutableDictionary as the content class of the array controller, making my custom class conform to NSCoding, and inserting a NSKeyedUnarchiveFromData value transformer into the binding.  Result: Exactly the same deficiency.
+## Steps to Reproduce
 
-To make the project work, I added an “Apply” button which “manually” copies the array controller content to the user defaults, in other words, doing manually what Cocoa Bindings was not doing.  See #define FIX_IT in AppDelegate.m.
+1.  Clone this demo project which demonstrates the bug:
+https://github.com/jerrykrinock/ArrayDictionaryDefaultsDemo
 
+2.  Open the project.
 
-STEPS TO RECREATE THIS PROJECT FROM SCRATCH
+3.  Build and run the target demo app.  A window will appear.
 
-In Xcode, New OS X Cocoa App project.
+4.  Hit the "[+]" button to add a "person".
 
-Edit the default xib file which appears in the project.
+5.  In the table, enter a First Name and Last Name for your new person.
 
-Add an array controller, and a table view to the window.
+6.  Repeat the above two steps, adding two more persons with names.
 
-Select the array controller and click Attributes Inspector  Verify atttributes mode = Class and class = NSMutableDictionary. Switch on checkbox Prepares Content.
+7.  Quit the demo app.
 
-Bind array controller to Shared User Defaults,
-Controller Key = values
-Model Key Path = persons
-Handles Content as Compound Values = ON
+8.  Relaunch the target demo app.
 
-Bind both table columns to array controller > arranged objects
+## Expected Results
 
-Set two text fields’ Behavior to editable
+Three "persons" with the first names and last names that you entered, should appear in the table.
 
-Select first TableColumn
-Bind Vaue to Array Controller with Controller Key = arrangedObjects.
+## Actual Results
 
-Select second Table Column
-ditto
+Only the first or maybe the first and second persons will have names.  The latter person(s) will have no names.
 
-Add a fixed image view to the first columnn’s view, so you can see name-less rows.  Make the Table View Cell (NSTextField) wider, to use whole column.  Similarly, widen the Table View Cell in second column.
+## Additional Notes
 
-Select Table View Cell (NSTextField) in first column.
-Bind Value to Table Cell View with Model KeyPath = objectValue.firstName.
+According to developer Keary Suska who was kind enough to test my demo project and provide a second opinion, if you make either of the following changes to the project, it will behave as expected:
 
-Select Table View Cell (NSTextField) in second column.
-Bind Value to Table Cell View with Model KeyPath = objectValue.lastName.
+(1) Change the view-based table to a cell-based table.
+(2) Proxy the array in the app delegate.
 
-Add + and - buttons, set their target/action to array controller’s -add: and -remove: actions.
+Here is a link to the email thread where this issue was discussed.  Of course, our understanding improved as the thread progressed.
 
+http://lists.apple.com/archives/cocoa-dev/2016/May/msg00061.html
+
+If you want to erase the demo app's user defaults and start over, enter this command in Terminal.app:
+
+```defaults delete com.sheepsystems.ArrayDictionaryDefaultsDemo```

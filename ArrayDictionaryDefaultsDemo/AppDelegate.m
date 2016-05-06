@@ -8,19 +8,8 @@
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
+    // This does not help.
     [NSUserDefaultsController sharedUserDefaultsController].appliesImmediately = YES ;
-}
-
-// #define FIX_IT
-
-- (IBAction)apply:(id)sender {
-#ifdef FIX_IT
-    NSArray* content = self.arrayController.content ;
-    [[NSUserDefaults standardUserDefaults] setObject:content
-                                              forKey:@"persons"] ;
-#else
-    NSLog(@"To make this work, #deine FIX_IT in AppDelegate.m") ;
-#endif
 }
 
 @end

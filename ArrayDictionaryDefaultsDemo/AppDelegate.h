@@ -4,7 +4,5 @@
 
 @property (assign) IBOutlet NSArrayController* arrayController ;
 
-- (IBAction)apply:(id)sender ;
-
 @end
 

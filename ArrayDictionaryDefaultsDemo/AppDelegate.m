@@ -7,6 +7,10 @@
 
 @implementation AppDelegate
 
+- (void)applicationDidFinishLaunching:(NSNotification *)notification {
+    [NSUserDefaultsController sharedUserDefaultsController].appliesImmediately = YES ;
+}
+
 // #define FIX_IT
 
 - (IBAction)apply:(id)sender {
